@@ -25,7 +25,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   const { id } = params;
-  const { response } = await request.json();
+  // const { response } = await request.json();
 
   const updatedTicket = await db.ticket.update({
     where: { id },
