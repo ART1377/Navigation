@@ -20,7 +20,7 @@ const socialLinks: SocialLink[] = [
 ];
 const navLinks: NavLink[] = [
   { label: "خانه", href: "/", icon: <HomeIcon styles="size-6 mb-1" /> },
-  { label: "پشتیبانی", href: "/", icon: <SupportIcon styles="size-6 mb-1" /> },
+  { label: "پشتیبانی", href: "/support", icon: <SupportIcon styles="size-6 mb-1" /> },
   { label: "ادمین", href: "/", icon: <UserIcon styles="size-6 mb-1" /> },
 ];
 
