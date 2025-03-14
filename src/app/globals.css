@@ -1,0 +1,120 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@theme {
+  --breakpoint-2xs: 320px;
+  --breakpoint-xs: 480px;
+  /* color */
+  --color-dark: #252525;
+  --color-light: #f2f2f2;
+  --color-primary-dark: #6c9b8b;
+  --color-primary-main: #b4c7be;
+  --color-primary-light: #ecfcf4;
+}
+
+body {
+  background-color: var(--color-light);
+}
+
+/* common classes */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.custom-transition {
+  transition: all 0.3s ease-in-out;
+}
+/* custom container */
+.custom-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+@media only screen and (min-width: 480px) {
+  .custom-container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+}
+
+/* animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    bottom: 100px;
+    left: 100px;
+  }
+  100% {
+    opacity: 0.9;
+    bottom: 0;
+    left: 0;
+  }
+}
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+  -webkit-animation: fadeIn 0.5s ease-out;
+}
+
+
+/* Custom slide-in animation */
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    -o-transform: translateY(-100%);
+}
+  to {
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+}
+}
+
+/* Custom slide-out animation */
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+}
+  to {
+    transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    -o-transform: translateY(-100%);
+}
+}
+
+/* Apply animations */
+.mobile-menu {
+  animation: slideIn 0.3s ease-out forwards;
+  -webkit-animation: slideIn 0.3s ease-out forwards;
+}
+
+.mobile-menu.closed {
+  animation: slideOut 0.3s ease-out forwards;
+  -webkit-animation: slideOut 0.3s ease-out forwards;
+}
+
+
+/* override leaflet styles */
+.leaflet-pane{
+  z-index: 1!important;
+}
+.leaflet-control-attribution.leaflet-control,
+.leaflet-bottom.leaflet-right,
+.leaflet-top.leaflet-left{
+  z-index: 2!important;
+}
+
