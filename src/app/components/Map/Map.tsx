@@ -143,6 +143,11 @@ const Map = () => {
 
   const currentPosition = routeCoordinates[currentIndex];
 
+  // Render nothing on the server side
+  if (typeof window === "undefined") {
+    return null;
+  }
+
   return (
     <section className="custom-container py-4 flex flex-col gap-x-4 gap-y-8 bg-white rounded-xl my-4 lg:flex-row">
       <div className="w-full bg-white flex flex-col items-center justify-between gap-8 lg:w-1/2">

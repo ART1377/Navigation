@@ -1,5 +1,5 @@
-import Map from "./components/Map/Map";
+import Homepage from "./components/Homepage/Homepage";
 
 export default function Home() {
-  return <Map />;
+  return <Homepage />;
 }
