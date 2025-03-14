@@ -1,38 +1,36 @@
-import { db } from "@/app/db/db";
-import { NextResponse } from "next/server";
+// import { db } from "@/app/db/db";
+// import { NextResponse } from "next/server";
 
+// export async function GET(
+//   request: Request,
+//   { params }: { params: { id: string } }
+// ) {
+//   const { id } = params;
 
+//   const ticket = await db.ticket.findUnique({
+//     where: { id },
+//   });
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+//   if (!ticket) {
+//     return NextResponse.json({ message: "Ticket not found" }, { status: 404 });
+//   }
 
-  const ticket = await db.ticket.findUnique({
-    where: { id },
-  });
+//   return NextResponse.json(ticket);
+// }
 
-  if (!ticket) {
-    return NextResponse.json({ message: "Ticket not found" }, { status: 404 });
-  }
+// export async function PUT(
+//   request: Request,
+//   { params }: { params: { id: string } }
+// ) {
+//   const { id } = params;
+//   // const { response } = await request.json();
 
-  return NextResponse.json(ticket);
-}
+//   const updatedTicket = await db.ticket.update({
+//     where: { id },
+//     data: {
+//       status: "closed",
+//     },
+//   });
 
-export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
-  // const { response } = await request.json();
-
-  const updatedTicket = await db.ticket.update({
-    where: { id },
-    data: {
-      status: "closed",
-    },
-  });
-
-  return NextResponse.json(updatedTicket);
-}
+//   return NextResponse.json(updatedTicket);
+// }
