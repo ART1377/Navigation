@@ -4,7 +4,7 @@
 import { db } from "@/app/db/db";
 import { z } from "zod";
 import { hashPassword } from "@/app/lib/utils/bcrypt/bcrypt";
-import { signIn } from "@/app/api/auth/[...nextauth]/route";
+import { signIn } from "@/app/auth";
 
 
 const signupSchema = z

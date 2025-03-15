@@ -1,7 +1,7 @@
 // ticket actions 
 "use server";
 
-import { auth } from "@/app/api/auth/[...nextauth]/route";
+import { auth } from "@/app/auth";
 import { db } from "@/app/db/db";
 import { Ticket } from "@prisma/client";
 import { revalidatePath } from "next/cache";
