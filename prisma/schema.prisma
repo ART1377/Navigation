@@ -21,6 +21,7 @@ model Ticket {
   title       String
   description String
   status      String   @default("open")
+  reply       String?  // Add this field
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

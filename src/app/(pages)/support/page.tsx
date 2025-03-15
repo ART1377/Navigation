@@ -1,9 +1,11 @@
+
 import TicketForm from "@/app/components/TicketForm/TicketForm";
 import TicketList from "@/app/components/TicketList/TicketList";
+import * as actions from "@/app/actions/ticket/ticket-actions";
 
-const SupportPage = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/tickets`);
-  const data = await res.json();
+
+const page = async () => {
+  const data = await actions.fetchTickets();
 
   return (
     <div className="container mx-auto p-4">
@@ -14,4 +16,4 @@ const SupportPage = async () => {
   );
 };
 
-export default SupportPage;
+export default page;

@@ -1,5 +1,3 @@
-"use client";
-
 import { Ticket } from "@prisma/client";
 
 export default function TicketList({ tickets }: { tickets: Ticket[] }) {
@@ -10,6 +8,12 @@ export default function TicketList({ tickets }: { tickets: Ticket[] }) {
           <h3 className="font-bold">{ticket.title}</h3>
           <p>{ticket.description}</p>
           <p>وضعیت: {ticket.status === "open" ? "باز" : "بسته"}</p>
+          {ticket.reply && (
+            <div className="mt-2 p-2 bg-gray-100 rounded">
+              <p className="font-semibold">پاسخ ادمین:</p>
+              <p>{ticket.reply}</p>
+            </div>
+          )}
         </div>
       ))}
     </div>

@@ -12,7 +12,7 @@ const navLinks: NavLink[] = [
     href: "/support",
     icon: <SupportIcon styles="size-6 mb-1" />,
   },
-  { label: "ادمین", href: "/", icon: <UserIcon styles="size-6 mb-1" /> },
+  { label: "ادمین", href: "/admin/tickets", icon: <UserIcon styles="size-6 mb-1" /> },
 ];
 
 const NavbarItems = () => {

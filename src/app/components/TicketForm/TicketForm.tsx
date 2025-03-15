@@ -1,42 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState } from "react";
+import * as actions from "@/app/actions/ticket/ticket-actions";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
+
+
 
 export default function TicketForm() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const res = await fetch("/api/tickets", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, description }),
-    });
-    const data = await res.json();
-    console.log(data);
-    setTitle("");
-    setDescription("");
-  };
+  const [state, formAction, pending] = useActionState(actions.createTicket, {
+    state: {},
+  });
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <input
-        type="text"
-        placeholder="عنوان تیکت"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full p-2 border rounded"
-      />
-      <textarea
-        placeholder="توضیحات"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="w-full p-2 border rounded"
-      />
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+    <form action={formAction} className="space-y-4" noValidate>
+      <div>
+        <Input
+          name="title"
+          placeholder="عنوان تیکت"
+          error={state.state.errors?.title?.[0]} // Pass the first error message
+          required
+        />
+      </div>
+      <div>
+        <Input
+          name="description"
+          placeholder="توضیحات"
+          as="textarea" // Use the `as` prop to render a textarea
+          error={state.state.errors?.description?.[0]} // Pass the first error message
+          required
+        />
+      </div>
+      {state.state.errors?._form && (
+        <p className="text-red-500">{state.state.errors._form[0]}</p>
+      )}
+      {state.state.success && (
+        <p className="text-green-500">تیکت با موفقیت ایجاد شد!</p>
+      )}
+      <Button
+        type="submit"
+        disabled={pending}
+        loading={pending}
+        variant="primary-dark"
+        className="w-full"
+      >
         ارسال تیکت
-      </button>
+      </Button>
     </form>
   );
 }
