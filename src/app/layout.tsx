@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
+import MainProvider from "./components/Providers/MainProvider";
 
 // Font files can be colocated inside of `app`
 const dana = localFont({
@@ -20,11 +21,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html dir="rtl" lang="fa-IR">
-      <body className={`${dana.className} antialiased`}>
-        <Navbar />
-        <main className="custom-container">{children}</main>
-      </body>
-    </html>
+    <MainProvider>
+      <html dir="rtl" lang="fa-IR">
+        <body className={`${dana.className} antialiased`}>
+          <Navbar />
+          <main className="custom-container">{children}</main>
+        </body>
+      </html>
+    </MainProvider>
   );
 }

@@ -1,16 +1,22 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-export default function TicketForm({ onSubmit }: { onSubmit: (ticket: { title: string; description: string }) => void }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+export default function TicketForm() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ title, description });
-    setTitle('');
-    setDescription('');
+    const res = await fetch("/api/tickets", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, description }),
+    });
+    const data = await res.json();
+    console.log(data);
+    setTitle("");
+    setDescription("");
   };
 
   return (

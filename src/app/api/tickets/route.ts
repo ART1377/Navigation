@@ -1,6 +1,8 @@
 import { db } from "@/app/db/db";
+// import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-static";
 
 export async function POST(request: Request) {
   const { title, description } = await request.json();
@@ -12,8 +14,10 @@ export async function POST(request: Request) {
       description,
     },
   });
-
+  
+  // revalidatePath('/support')
   return NextResponse.json(newTicket, { status: 201 });
+  
 }
 
 export async function GET() {
