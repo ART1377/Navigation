@@ -5,8 +5,7 @@ import Credentials from "next-auth/providers/credentials";
 import type { Adapter } from "next-auth/adapters";
 import { comparePassword } from "@/app/lib/utils/bcrypt/bcrypt";
 
-
-export const { handlers, signIn, signOut, auth } = NextAuth({
+const handler = NextAuth({
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
     Credentials({
@@ -68,3 +67,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/auth/login",
   },
 });
+
+export { handler as GET, handler as POST };
