@@ -1,5 +1,7 @@
+// ticket actions 
 "use server";
 
+import { auth } from "@/app/auth";
 import { db } from "@/app/db/db";
 import { Ticket } from "@prisma/client";
 import { revalidatePath } from "next/cache";
@@ -36,19 +38,19 @@ export async function createTicket(
     description: formData.get("description"),
   };
 
-  //   // Check if user is logged in
-  //   const session = await auth();
+    // Check if user is logged in
+    const session = await auth();
 
-  //   if (!session || !session.user || !session.user.id) {
-  //     return {
-  //       state: {
-  //         errors: {
-  //           _form: ["ابتدا وارد سایت شوید"],
-  //         },
-  //         success: false,
-  //       },
-  //     };
-  //   }
+    if (!session || !session.user || !session.user.id) {
+      return {
+        state: {
+          errors: {
+            _form: ["ابتدا وارد سایت شوید"],
+          },
+          success: false,
+        },
+      };
+    }
 
   // Validate the data using Zod
   const result = ticketSchema.safeParse(rawData);
@@ -69,7 +71,7 @@ export async function createTicket(
       data: {
         title,
         description,
-        // userId: session.user.id, // Associate the ticket with the logged-in user
+        userId: session?.user.id, // Associate the ticket with the logged-in user
       },
     });
 

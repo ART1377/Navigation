@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "../../../../../next-type-d";
+import { NavLink } from "../../../../../next-type";
 import Link from "next/link";
 
 type Props = {

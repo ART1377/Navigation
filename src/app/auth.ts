@@ -1,0 +1,67 @@
+import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { db } from "@/app/db/db";
+import Credentials from "next-auth/providers/credentials";
+import type { Adapter } from "next-auth/adapters";
+import { comparePassword } from "./lib/utils/bcrypt/bcrypt";
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: PrismaAdapter(db) as Adapter,
+  providers: [
+    Credentials({
+      name: "Credentials",
+      credentials: {
+        email: { label: "email", type: "email" },
+        password: { label: "password", type: "password" },
+      },
+      authorize: async (credentials) => {
+        const password = credentials?.password as string;
+        const email = credentials?.email as string;
+
+        let user = null;
+        // logic to verify if the user exists
+        user = await db.user.findUnique({
+          where: { email },
+        });
+
+        if (!user || !credentials?.password) return null;
+
+        const isValidPassword = await comparePassword(password, user.password!);
+        if (!isValidPassword) {
+          return null;
+        }
+        return user;
+      },
+    }),
+  ],
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
+        token.role = user.role; 
+      }
+      return token;
+    },
+    async session({ session, token }: any) {
+      if (session && session.user) {
+        const user = await db.user.findUnique({
+          where: { email: session.user.email },
+        });
+        if (user) {
+          session.user.name = user?.name;
+        }
+
+        session.user.id = token.id;
+        session.user.role = token.role; 
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/auth/login",
+  },
+});

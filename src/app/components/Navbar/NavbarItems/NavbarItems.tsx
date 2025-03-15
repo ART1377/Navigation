@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "../../../../../next-type-d";
+import { NavLink } from "../../../../../next-type";
 import HomeIcon from "@/app/icons/home-icon";
 import SupportIcon from "@/app/icons/support-icon";
 import UserIcon from "@/app/icons/user-icon";
@@ -12,7 +12,11 @@ const navLinks: NavLink[] = [
     href: "/support",
     icon: <SupportIcon styles="size-6 mb-1" />,
   },
-  { label: "ادمین", href: "/admin/tickets", icon: <UserIcon styles="size-6 mb-1" /> },
+  {
+    label: "ادمین",
+    href: "/admin/tickets",
+    icon: <UserIcon styles="size-6 mb-1" />,
+  },
 ];
 
 const NavbarItems = () => {

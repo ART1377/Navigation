@@ -16,7 +16,7 @@ type Props = {
   onSearch: (data: SearchSchema) => void;
 };
 
-const Form = ({ onSearch }: Props) => {
+const NavigationForm = ({ onSearch }: Props) => {
   const {
     register,
     handleSubmit,
@@ -58,4 +58,4 @@ const Form = ({ onSearch }: Props) => {
   );
 };
 
-export default Form;
+export default NavigationForm;

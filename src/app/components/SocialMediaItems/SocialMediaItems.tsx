@@ -1,7 +1,7 @@
 import TelegramIcon from "@/app/icons/telegram-icon";
 import GithubIcon from "@/app/icons/github-icon";
 import EmailIcon from "@/app/icons/email-icon";
-import { SocialLink } from "../../../../next-type-d";
+import { SocialLink } from "../../../../next-type";
 import SocialMediaItem from "./SocialMediaItem/SocialMediaItem";
 
 const socialLinks: SocialLink[] = [

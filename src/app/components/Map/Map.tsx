@@ -13,7 +13,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-rotatedmarker";
 import axios from "axios";
-import Form from "../Form/Form";
+import NavigationForm from "../NavigationForm/NavigationForm";
 import { geocodeLocation } from "@/app/lib/utils/geoCodeLocation/geoCodeLocation";
 import Logo from "../Logo/Logo";
 import Image from "next/image";
@@ -161,7 +161,7 @@ const Map = () => {
           </h1>
         </div>
         {/* Form */}
-        <Form onSearch={handleSearch} />
+        <NavigationForm onSearch={handleSearch} />
         {/* wavy shape */}
         <div className="relative w-full h-44 hidden lg:block">
           <Image

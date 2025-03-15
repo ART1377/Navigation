@@ -4,7 +4,7 @@ import TicketList from "@/app/components/TicketList/TicketList";
 import * as actions from "@/app/actions/ticket/ticket-actions";
 
 
-const page = async () => {
+const SupportPage = async () => {
   const data = await actions.fetchTickets();
 
   return (
@@ -16,4 +16,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default SupportPage;

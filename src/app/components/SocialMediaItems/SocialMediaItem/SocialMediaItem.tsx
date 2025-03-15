@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { SocialLink } from "../../../../../next-type-d";
+import { SocialLink } from "../../../../../next-type";
 
 type Props = {
   socialItem: SocialLink;
