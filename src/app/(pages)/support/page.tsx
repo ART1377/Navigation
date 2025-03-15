@@ -2,7 +2,7 @@ import TicketForm from "@/app/components/TicketForm/TicketForm";
 import TicketList from "@/app/components/TicketList/TicketList";
 
 const SupportPage = async () => {
-  const res = await fetch("/api/tickets");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/tickets`);
   const data = await res.json();
 
   return (
