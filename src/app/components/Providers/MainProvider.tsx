@@ -1,16 +1,11 @@
-import React from 'react'
+import React from "react";
 
 type Props = {
-    children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
-const MainProvider = ({children}: Props) => {
-  return (
-    <>
-    
-    {children}
-    </>
-  )
-}
+const MainProvider = ({ children }: Props) => {
+  return <>{children}</>;
+};
 
-export default MainProvider
+export default MainProvider;

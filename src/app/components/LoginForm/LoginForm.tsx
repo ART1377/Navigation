@@ -1,36 +1,68 @@
 "use client";
 
-import { useActionState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import * as actions from "@/app/actions/auth/auth-actions";
+import { startTransition, useActionState } from "react";
+
+
+const loginSchema = z.object({
+  email: z.string().email("ایمیل معتبر نیست"),
+  password: z.string().min(1, "رمز عبور الزامی است"),
+});
+
+
+type LoginFormData = z.infer<typeof loginSchema>;
+
 
 export default function LoginForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    mode: "onChange", 
+  });
+
   const [state, formAction, pending] = useActionState(actions.login, {
     state: {},
   });
 
+  const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
+    const formData = new FormData();
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+
+    startTransition(() => {
+      formAction(formData);
+    });
+  };
+
   return (
-    <form action={formAction} className="space-y-4" noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
       <Input
-        name="email"
         placeholder="ایمیل"
         type="email"
+        {...register("email")}
+        error={errors.email?.message || state.state.errors?.email?.[0]}
         required
-        error={state.state.errors?.email?.[0]}
       />
       <Input
-        name="password"
         placeholder="رمز عبور"
         type="password"
+        {...register("password")}
+        error={errors.password?.message || state.state.errors?.password?.[0]}
         required
-        error={state.state.errors?.password?.[0]}
       />
       {state.state.errors?._form && (
-        <p className="text-red-500">{state.state.errors._form[0]}</p>
+        <p className="text-red-500 text-sm">{state.state.errors._form[0]}</p>
       )}
       {state.state.success && (
-        <p className="text-green-500">ورود با موفقیت انجام شد!</p>
+        <p className="text-green-500 text-sm">ورود با موفقیت انجام شد!</p>
       )}
       <Button
         type="submit"

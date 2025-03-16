@@ -17,15 +17,15 @@ datasource db {
 // auth.js
 model User {
   id            String          @id @default(cuid())
-  name          String          
-  email         String          @unique 
+  name          String
+  email         String          @unique
   emailVerified DateTime?
-  password      String?         
+  password      String?
   role          String          @default("USER")
   accounts      Account[]
   sessions      Session[]
   Authenticator Authenticator[]
-  tickets       Ticket[]        // Relation to Ticket
+  tickets       Ticket[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -91,9 +91,9 @@ model Ticket {
   title       String
   description String
   status      String   @default("open")
-  reply       String?  // Add this field
-  userId      String   // Foreign key to User
-  user        User     @relation(fields: [userId], references: [id]) // Relation to User
+  reply       String?
+  userId      String   @default("default-user-id") // اضافه کردن مقدار پیش‌فرض
+  user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

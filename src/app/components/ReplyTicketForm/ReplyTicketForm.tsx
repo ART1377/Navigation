@@ -23,10 +23,10 @@ import Button from "../Button/Button";
         />
       </div>
       {state.state.errors?._form && (
-        <p className="text-red-500">{state.state.errors._form[0]}</p>
+        <p className="text-red-500 text-sm">{state.state.errors._form[0]}</p>
       )}
       {state.state.success && (
-        <p className="text-green-500">پاسخ با موفقیت ارسال شد!</p>
+        <p className="text-green-500 text-sm">پاسخ با موفقیت ارسال شد!</p>
       )}
       <Button
         type="submit"

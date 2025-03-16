@@ -19,7 +19,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const email = credentials?.email as string;
 
         let user = null;
-        // logic to verify if the user exists
         user = await db.user.findUnique({
           where: { email },
         });
@@ -30,8 +29,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!isValidPassword) {
           return null;
         }
-
-        // بازگرداندن کاربر با نوع مناسب
         return {
           id: user.id,
           name: user.name,

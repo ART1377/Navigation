@@ -3,8 +3,9 @@
 
 import { db } from "@/app/db/db";
 import { z } from "zod";
-import { hashPassword } from "@/app/lib/utils/bcrypt/bcrypt";
+import { comparePassword, hashPassword } from "@/app/lib/utils/bcrypt/bcrypt";
 import { signIn } from "@/app/auth";
+
 
 
 const signupSchema = z
@@ -71,24 +72,35 @@ export async function signup(
     };
   }
 
+  const existingUser = await db.user.findUnique({
+    where: {
+      email: result.data.email,
+    },
+  });
+
+  if (existingUser) {
+    return {
+      state: {
+        errors: {
+          email: ["کاربری با این ایمیل موجود است"],
+        },
+        success: false,
+      },
+    };
+  }
+
   const { name, email, password } = result.data;
 
   const hashedPassword = await hashPassword(password);
 
   try {
-     await db.user.create({
+    await db.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
         role: "USER",
       },
-    });
-
-    await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
     });
 
     // redirect("/dashboard");
@@ -103,7 +115,7 @@ export async function signup(
     return {
       state: {
         errors: {
-          _form: ["خطا در ایجاد کاربر. ممکن است ایمیل از قبل وجود داشته باشد."],
+          _form: ["خطا در ایجاد کاربر رخ داده است"],
         },
         success: false,
       },
@@ -131,25 +143,48 @@ export async function login(
     };
   }
 
-  const { email, password } = result.data;
+  const user = await db.user.findUnique({
+    where: { email: result.data.email },
+  });
 
-  try {
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+  if (!user) {
+    return {
+      state: {
+        errors: {
+          _form: ["کاربری با این ایمیل یافت نشد"],
+        },
+        success: false,
+      },
+    };
+  }
 
-    if (result?.error) {
+  if (user) {
+    const isValidPassword = await comparePassword(
+      result.data.password,
+      user.password!
+    );
+    if (!isValidPassword) {
       return {
         state: {
           errors: {
-            _form: ["ایمیل یا رمز عبور اشتباه است."],
+            _form: ["رمز عبور با ایمیل مطابقت ندارد"],
           },
           success: false,
         },
       };
     }
+  }
+
+  const { email, password } = result.data;
+
+
+  
+  try {
+    signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
 
     // redirect("/dashboard");
 

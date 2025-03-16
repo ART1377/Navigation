@@ -1,7 +1,5 @@
 import LoginForm from "@/app/components/LoginForm/LoginForm";
 
-
-
 const LoginPage = () => {
   return (
     <div>
