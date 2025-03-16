@@ -15,7 +15,7 @@ const socialLinks: SocialLink[] = [
 
 const SocialMediaItems = () => {
   return (
-    <div className="flex items-center gap-3 justify-center">
+    <div className="flex items-center gap-3 justify-center mb-5 md:mb-0">
       {socialLinks.map((item) => (
         <SocialMediaItem key={item.href} socialItem={item} />
       ))}

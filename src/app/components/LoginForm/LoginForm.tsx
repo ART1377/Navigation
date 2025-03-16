@@ -6,17 +6,16 @@ import { z } from "zod";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import * as actions from "@/app/actions/auth/auth-actions";
-import { startTransition, useActionState } from "react";
-
+import { startTransition, useActionState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const loginSchema = z.object({
   email: z.string().email("ایمیل معتبر نیست"),
   password: z.string().min(1, "رمز عبور الزامی است"),
 });
 
-
 type LoginFormData = z.infer<typeof loginSchema>;
-
 
 export default function LoginForm() {
   const {
@@ -25,12 +24,19 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    mode: "onChange", 
+    mode: "onChange",
   });
 
   const [state, formAction, pending] = useActionState(actions.login, {
     state: {},
   });
+
+  const router = useRouter();
+  useEffect(() => {
+    if (state.state.success) {
+      router.push("/");
+    }
+  }, [state.state.success, router]);
 
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     const formData = new FormData();
@@ -43,7 +49,11 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-4 w-full"
+      noValidate
+    >
       <Input
         placeholder="ایمیل"
         type="email"
@@ -73,6 +83,15 @@ export default function LoginForm() {
       >
         ورود
       </Button>
+      <div className="flex gap-1 text-sm">
+        <p className="text-gray-700">حساب کاربری ندارید؟</p>
+        <Link
+          href={"/auth/signup"}
+          className="text-primary-dark hover:text-primary-main custom-transition"
+        >
+          ثبت نام
+        </Link>
+      </div>
     </form>
   );
 }

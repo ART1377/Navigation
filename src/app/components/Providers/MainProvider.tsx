@@ -1,3 +1,4 @@
+import { SessionProvider } from "@/app/context/useSessionContext";
 import React from "react";
 
 type Props = {
@@ -5,7 +6,11 @@ type Props = {
 };
 
 const MainProvider = ({ children }: Props) => {
-  return <>{children}</>;
+  return (
+    <>
+      <SessionProvider>{children}</SessionProvider>
+    </>
+  );
 };
 
 export default MainProvider;

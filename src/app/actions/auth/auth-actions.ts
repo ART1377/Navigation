@@ -180,7 +180,7 @@ export async function login(
 
   
   try {
-    signIn("credentials", {
+    await signIn("credentials", {
       email,
       password,
       redirect: false,

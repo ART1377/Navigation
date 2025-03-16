@@ -6,7 +6,9 @@ import { z } from "zod";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import * as actions from "@/app/actions/auth/auth-actions";
-import { startTransition, useActionState } from "react";
+import { startTransition, useActionState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const signupSchema = z
   .object({
@@ -38,6 +40,13 @@ export default function SignupForm() {
     state: {},
   });
 
+  const router = useRouter();
+  useEffect(() => {
+    if (state.state.success) {
+      router.push("/auth/login");
+    }
+  }, [state.state.success, router]);
+
   const onSubmit: SubmitHandler<SignupFormData> = async (data) => {
     const formData = new FormData();
     formData.append("name", data.name);
@@ -51,7 +60,7 @@ export default function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full" noValidate>
       <Input
         placeholder="نام"
         {...register("name")}
@@ -97,6 +106,15 @@ export default function SignupForm() {
       >
         ثبت نام
       </Button>
+      <div className="flex gap-1 text-sm">
+        <p className="text-gray-700">قبلا ثبت نام کرده اید؟</p>
+        <Link
+          href={"/auth/login"}
+          className="text-primary-dark hover:text-primary-main custom-transition"
+        >
+          ورود
+        </Link>
+      </div>
     </form>
   );
 }
