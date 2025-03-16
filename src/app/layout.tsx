@@ -25,7 +25,7 @@ export default function RootLayout({
       <html dir="rtl" lang="fa-IR">
         <body className={`${dana.className} antialiased`}>
           <Navbar />
-          <main className="custom-container">{children}</main>
+          <main className="custom-container !mb-20">{children}</main>
         </body>
       </html>
     </MainProvider>

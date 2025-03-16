@@ -17,6 +17,7 @@ import NavigationForm from "../NavigationForm/NavigationForm";
 import { geocodeLocation } from "@/app/lib/utils/geoCodeLocation/geoCodeLocation";
 import Logo from "../Logo/Logo";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 declare module "leaflet" {
   interface Marker {
@@ -77,7 +78,7 @@ const Map = () => {
       }
     } catch (error) {
       console.error("Error fetching route:", error);
-      alert("خطا در دریافت مسیر. لطفا دوباره تلاش کنید.");
+      toast.error("خطا در دریافت مسیر. لطفا دوباره تلاش کنید.");
     }
   };
 
@@ -137,7 +138,7 @@ const Map = () => {
       fetchRoute(originCoords, destinationCoords);
     } catch (error) {
       console.log("Error geocoding location:", error);
-      alert("خطا در دریافت مختصات مبدا یا مقصد");
+      toast.error("خطا در دریافت مختصات مبدا یا مقصد");
     }
   };
 

@@ -9,6 +9,7 @@ import * as actions from "@/app/actions/auth/auth-actions";
 import { startTransition, useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const signupSchema = z
   .object({
@@ -43,6 +44,7 @@ export default function SignupForm() {
   const router = useRouter();
   useEffect(() => {
     if (state.state.success) {
+      toast.success("ثبت نام با موفقیت انجام شد!");
       router.push("/auth/login");
     }
   }, [state.state.success, router]);
@@ -93,9 +95,6 @@ export default function SignupForm() {
       />
       {state.state.errors?._form && (
         <p className="text-red-500 text-sm">{state.state.errors._form[0]}</p>
-      )}
-      {state.state.success && (
-        <p className="text-green-500 text-sm">ثبت‌نام با موفقیت انجام شد!</p>
       )}
       <Button
         type="submit"

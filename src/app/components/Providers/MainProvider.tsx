@@ -1,5 +1,5 @@
 import { SessionProvider } from "@/app/context/useSessionContext";
-import React from "react";
+import { Toaster } from "react-hot-toast";
 
 type Props = {
   children: React.ReactNode;
@@ -8,7 +8,10 @@ type Props = {
 const MainProvider = ({ children }: Props) => {
   return (
     <>
-      <SessionProvider>{children}</SessionProvider>
+      <SessionProvider>
+        {children}
+        <Toaster position="top-center" reverseOrder={false} />
+      </SessionProvider>
     </>
   );
 };

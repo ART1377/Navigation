@@ -1,4 +1,4 @@
-// ticket actions 
+// ticket actions
 "use server";
 
 import { auth } from "@/app/auth";
@@ -38,19 +38,19 @@ export async function createTicket(
     description: formData.get("description"),
   };
 
-    // Check if user is logged in
-    const session = await auth();
+  // Check if user is logged in
+  const session = await auth();
 
-    if (!session || !session.user || !session.user.id) {
-      return {
-        state: {
-          errors: {
-            _form: ["ابتدا وارد سایت شوید"],
-          },
-          success: false,
+  if (!session || !session.user || !session.user.id) {
+    return {
+      state: {
+        errors: {
+          _form: ["ابتدا وارد سایت شوید"],
         },
-      };
-    }
+        success: false,
+      },
+    };
+  }
 
   // Validate the data using Zod
   const result = ticketSchema.safeParse(rawData);
@@ -98,6 +98,18 @@ export async function fetchTickets(): Promise<Ticket[]> {
   }
 }
 
+export async function fetchTicketsByUserId(userId: string): Promise<Ticket[]> {
+  try {
+    const tickets = await db.ticket.findMany({
+      where: { userId },
+    });
+    return tickets;
+  } catch (error) {
+    console.error("Failed to fetch tickets by userId:", error);
+    throw new Error("خطا در دریافت تیکت‌ها");
+  }
+}
+
 export interface ReplyTicketFormState {
   state: {
     success?: boolean;
@@ -114,6 +126,25 @@ export async function replyToTicket(
 ): Promise<ReplyTicketFormState> {
   const ticketId = formData.get("ticketId") as string;
   const reply = formData.get("reply") as string;
+
+  // Check if user is logged in
+  const session = await auth();
+
+  if (
+    !session ||
+    !session.user ||
+    !session.user.id ||
+    session.user.role === "USER"
+  ) {
+    return {
+      state: {
+        errors: {
+          _form: ["ابتدا به عنوان ادمین وارد سایت شوید"],
+        },
+        success: false,
+      },
+    };
+  }
 
   if (!ticketId || !reply) {
     return { state: { errors: { _form: ["لطفاً پاسخ را وارد کنید"] } } };

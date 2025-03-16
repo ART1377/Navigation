@@ -2,8 +2,7 @@ import LoginForm from "@/app/components/LoginForm/LoginForm";
 import Logo from "@/app/components/Logo/Logo";
 import Image from "next/image";
 
-
-const LoginPage = async () => {
+const LoginPage = () => {
   return (
     <section className="custom-container py-4 flex flex-col gap-x-4 gap-y-8 bg-white rounded-xl my-4 md:flex-row">
       <div className="w-full bg-white flex flex-col items-center justify-between gap-8 md:w-1/2">
@@ -15,11 +14,10 @@ const LoginPage = async () => {
           <h1 className="text-xl text-primary-dark -mt-2">
             شرکت داده پردازی نوین
           </h1>
-        
         </div>
         {/* Form */}
         <LoginForm />
-       
+
         {/* wavy shape */}
         <div className="relative w-full h-44 hidden md:block">
           <Image

@@ -24,7 +24,7 @@ const signupSchema = z
 
 const loginSchema = z.object({
   email: z.string().email("ایمیل معتبر نیست"),
-  password: z.string().min(1, "رمز عبور الزامی است"),
+  password: z.string().min(6, "رمز عبور باید حداقل ۶ کاراکتر باشد"),
 });
 
 export interface SighUpFormState {

@@ -9,6 +9,9 @@ import * as actions from "@/app/actions/auth/auth-actions";
 import { startTransition, useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import LoginInfoModal from "../LoginInfoModal/LoginInfoModal";
+
 
 const loginSchema = z.object({
   email: z.string().email("ایمیل معتبر نیست"),
@@ -31,9 +34,11 @@ export default function LoginForm() {
     state: {},
   });
 
+
   const router = useRouter();
   useEffect(() => {
     if (state.state.success) {
+      toast.success("ورود با موفقیت انجام شد!");
       router.push("/");
     }
   }, [state.state.success, router]);
@@ -49,49 +54,50 @@ export default function LoginForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4 w-full"
-      noValidate
-    >
-      <Input
-        placeholder="ایمیل"
-        type="email"
-        {...register("email")}
-        error={errors.email?.message || state.state.errors?.email?.[0]}
-        required
-      />
-      <Input
-        placeholder="رمز عبور"
-        type="password"
-        {...register("password")}
-        error={errors.password?.message || state.state.errors?.password?.[0]}
-        required
-      />
-      {state.state.errors?._form && (
-        <p className="text-red-500 text-sm">{state.state.errors._form[0]}</p>
-      )}
-      {state.state.success && (
-        <p className="text-green-500 text-sm">ورود با موفقیت انجام شد!</p>
-      )}
-      <Button
-        type="submit"
-        variant="primary-dark"
-        disabled={pending}
-        loading={pending}
-        className="w-full"
+    <>
+    <LoginInfoModal/>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4 w-full"
+        noValidate
       >
-        ورود
-      </Button>
-      <div className="flex gap-1 text-sm">
-        <p className="text-gray-700">حساب کاربری ندارید؟</p>
-        <Link
-          href={"/auth/signup"}
-          className="text-primary-dark hover:text-primary-main custom-transition"
+        <Input
+          placeholder="ایمیل"
+          type="email"
+          {...register("email")}
+          error={errors.email?.message || state.state.errors?.email?.[0]}
+          required
+        />
+        <Input
+          placeholder="رمز عبور"
+          type="password"
+          {...register("password")}
+          error={errors.password?.message || state.state.errors?.password?.[0]}
+          required
+        />
+        {state.state.errors?._form && (
+          <p className="text-red-500 text-sm">{state.state.errors._form[0]}</p>
+        )}
+
+        <Button
+          type="submit"
+          variant="primary-dark"
+          disabled={pending}
+          loading={pending}
+          className="w-full"
         >
-          ثبت نام
-        </Link>
-      </div>
-    </form>
+          ورود
+        </Button>
+        <div className="flex gap-1 text-sm">
+          <p className="text-gray-700">حساب کاربری ندارید؟</p>
+          <Link
+            href={"/auth/signup"}
+            className="text-primary-dark hover:text-primary-main custom-transition"
+          >
+            ثبت نام
+          </Link>
+        </div>
+      </form>
+    </>
   );
 }

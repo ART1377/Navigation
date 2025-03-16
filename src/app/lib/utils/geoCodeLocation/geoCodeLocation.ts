@@ -1,7 +1,9 @@
 import axios from "axios";
 
 // convert location name to coordinate
-export const geocodeLocation = async (location: string): Promise<[number, number]> => {
+export const geocodeLocation = async (
+  location: string
+): Promise<[number, number]> => {
   try {
     const response = await axios.get(
       `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
@@ -17,9 +19,8 @@ export const geocodeLocation = async (location: string): Promise<[number, number
     }
   } catch (error) {
     console.log("Error geocoding location:", error);
-    alert(
-      "Failed to geocode the location. Please check the input and try again."
+    throw new Error(
+      "خطا در یافتن مکان. لطفا ورودی را بررسی کرده و دوباره تلاش کنید."
     );
-    throw error;
   }
 };
