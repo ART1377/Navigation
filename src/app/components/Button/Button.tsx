@@ -16,7 +16,7 @@ const Button = ({
   type = "button",
   disabled = false,
   loading = false,
-  variant = "primary-main",
+  variant = "primary-dark",
   className = "",
 }: ButtonProps) => {
   const getVariantStyles = () => {
