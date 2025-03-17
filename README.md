@@ -34,3 +34,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+##Technologies Used
+
+In this project, the following technologies and libraries were used:
+
+    Next.js: A React framework for building server-side rendered and static web applications.
+
+    TypeScript: A typed superset of JavaScript that compiles to plain JavaScript.
+
+    Auth.js: For authentication and user management.
+
+    Leaflet.js: A JavaScript library for interactive maps.
+
+    React Hook Form: A library for managing forms in React.
+
+    Zod: A TypeScript-first schema validation library.
+
+##Testing Admin Options
+
+For testing admin functionalities, you can use the following credentials:
+
+    Email: admin@gmail.com
+
+    Password: 123456
