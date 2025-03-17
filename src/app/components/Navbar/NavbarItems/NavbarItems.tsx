@@ -20,13 +20,13 @@ const navLinks: NavLink[] = [
   },
 ];
 
-const NavbarItems = () => {
+const NavbarItems = ({ onClick }: { onClick: () => void }) => {
   return (
     <div className="flex items-center gap-x-6 flex-col gap-y-12 md:flex-row">
       {navLinks.map((item: NavLink) => (
-        <NavbarItem key={item.label} navbarItem={item} />
+        <NavbarItem key={item.label} navbarItem={item} onClick={onClick} />
       ))}
-      <UserProfile/>
+      <UserProfile />
     </div>
   );
 };

@@ -4,13 +4,15 @@ import Link from "next/link";
 type Props = {
   bg?: boolean;
   styles?: string;
+  onClick?: () => void;
 };
 
-const Logo = ({ styles, bg = true }: Props) => {
+const Logo = ({ styles, bg = true, onClick }: Props) => {
   return (
     <Link
       href="/"
       aria-label="homepage"
+      onClick={onClick}
       className={`${styles} relative block w-full h-full custom-transition hover:opacity-60`}
     >
       <Image
@@ -21,7 +23,7 @@ const Logo = ({ styles, bg = true }: Props) => {
         style={{
           objectFit: "cover",
         }}
-      />    
+      />
     </Link>
   );
 };

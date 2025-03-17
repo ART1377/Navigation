@@ -13,11 +13,11 @@ const socialLinks: SocialLink[] = [
   },
 ];
 
-const SocialMediaItems = () => {
+const SocialMediaItems = ({ onClick }: { onClick: () => void }) => {
   return (
     <div className="flex items-center gap-3 justify-center mb-5 md:mb-0">
       {socialLinks.map((item) => (
-        <SocialMediaItem key={item.href} socialItem={item} />
+        <SocialMediaItem key={item.href} socialItem={item} onClick={onClick} />
       ))}
     </div>
   );

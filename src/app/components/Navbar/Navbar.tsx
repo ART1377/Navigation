@@ -7,9 +7,13 @@ import MenuIcon from "@/app/icons/menu-icon";
 import NavbarItems from "./NavbarItems/NavbarItems";
 import SocialMediaItems from "../SocialMediaItems/SocialMediaItems";
 
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Function to close the mobile menu
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="bg-white shadow-md mb-4 md:mb-8">
@@ -30,7 +34,7 @@ const Navbar = () => {
         </button>
         {/* Logo */}
         <div className="relative w-20 h-16">
-          <Logo bg={false} />
+          <Logo bg={false} onClick={closeMobileMenu} />
         </div>
       </div>
 
@@ -45,7 +49,7 @@ const Navbar = () => {
         <div className="w-full p-3 flex justify-between items-center md:hidden">
           {/* Logo */}
           <div className="relative w-20 h-16">
-            <Logo bg={false} />
+            <Logo bg={false} onClick={closeMobileMenu} />
           </div>
           <button
             onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -65,11 +69,11 @@ const Navbar = () => {
             <Logo bg={false} />
           </div>
           {/* Navigation Links */}
-          <NavbarItems />
+          <NavbarItems onClick={closeMobileMenu} />
         </nav>
 
         {/* Social Media Icons */}
-        <SocialMediaItems />
+        <SocialMediaItems onClick={closeMobileMenu} />
       </div>
     </header>
   );
