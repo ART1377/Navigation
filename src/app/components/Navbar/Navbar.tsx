@@ -15,10 +15,6 @@ const Navbar = () => {
     <header className="bg-white shadow-md mb-4 md:mb-8">
       {/* Mobile Menu Button */}
       <div className="custom-container p-3 flex justify-between items-center md:hidden">
-        {/* Logo */}
-        <div className="relative w-20 h-16">
-          <Logo bg={false} />
-        </div>
         <button
           onClick={() => setIsMenuOpen((prev) => !prev)}
           className="size-10 border border-primary-dark text-primary-dark rounded-full flex-center hover:bg-primary-dark hover:text-white custom-transition cursor-pointer"
@@ -32,6 +28,10 @@ const Navbar = () => {
             <MenuIcon styles="size-6" />
           )}
         </button>
+        {/* Logo */}
+        <div className="relative w-20 h-16">
+          <Logo bg={false} />
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -70,8 +70,6 @@ const Navbar = () => {
 
         {/* Social Media Icons */}
         <SocialMediaItems />
-        {/* login / signup */}
-        {/* <UserProfile/> */}
       </div>
     </header>
   );
